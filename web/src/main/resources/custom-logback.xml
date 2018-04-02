@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+
+    <variable name="LOG_PATH" value="/Users/mubeysha/Documents/Code/Charity/charity/amazesys/logs"/>
+
+    <appender name="framework-text" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+        <file>${LOG_PATH}/framework-text.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${rollover.path}/framework-text.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${max.log.history:-1}</maxHistory>
+            <totalSizeCap>${TOTAL_LOG_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="interhome-text" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%X{Logging-CorrelationId} %d [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <file>${LOG_PATH}/interhome-text.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${rollover.path}/interhome-text.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${max.log.history:-1}</maxHistory>
+            <totalSizeCap>${TOTAL_LOG_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+
+    <!-- =================== LOGGERS - START ========================== -->
+
+    <logger name="com.amazesys.generic.framework.search" additivity="true" level="INFO">
+        <appender-ref ref="framework-text"/>
+    </logger>
+
+    <logger name="com.amazesys.generic.framework.search.supplier.interhome" additivity="true" level="INFO">
+        <appender-ref ref="interhome-text"/>
+    </logger>
+</included>
